@@ -1,0 +1,36 @@
+# Default values for duckdns.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: linuxserver/duckdns
+  pullPolicy: IfNotPresent
+  tag: latest
+
+subdomains:
+  - example.duckdns.org
+
+timezone: Europe/Warsaw
+
+secretRef:
+  name: duckdns
+
+replicas: 2
+
+resources: {}
+
+nodeSelector: {}
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: app.kubernetes.io/name
+              operator: In
+              values:
+                - duckdns
+        topologyKey: kubernetes.io/hostname

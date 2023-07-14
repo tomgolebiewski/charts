@@ -1,0 +1,9 @@
+apiVersion: v2
+name: duckdns
+description: Duckdns domain auto renewal
+type: application
+version: 0.1.0
+appVersion: 0.1.0
+maintainers:
+  - name: tomgolebiewski
+    email: golebtom@gmail.com
