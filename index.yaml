@@ -14,6 +14,17 @@ entries:
     urls:
     - https://github.com/tomgolebiewski/helm-charts/releases/download/duckdns-0.1.0/duckdns-0.1.0.tgz
     version: 0.1.0
+  emhass:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-03-07T16:49:22.040114372Z"
+    description: A Helm chart for Kubernetes
+    digest: 45e579b910bf9e70dee3db37fd3ad84291bfd358f208ffcc1f7896a16deba64e
+    name: emhass
+    type: application
+    urls:
+    - https://github.com/tomgolebiewski/helm-charts/releases/download/emhass-0.1.0/emhass-0.1.0.tgz
+    version: 0.1.0
   myapp:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -25,4 +36,4 @@ entries:
     urls:
     - https://github.com/tomgolebiewski/helm-charts/releases/download/myapp-0.1.0/myapp-0.1.0.tgz
     version: 0.1.0
-generated: "2024-03-07T15:57:47.215584722Z"
+generated: "2024-03-07T16:49:22.040124221Z"
