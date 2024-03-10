@@ -17,6 +17,19 @@ entries:
   emhass:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-03-10T12:05:26.924845173Z"
+    description: A EMHASS Helm chart for Kubernetes
+    digest: 4379bca66c77671c219e2a8a0796b5cb468e6211df9082a05774aa348d239427
+    maintainers:
+    - email: golebtom@gmail.com
+      name: tomgolebiewski
+    name: emhass
+    type: application
+    urls:
+    - https://github.com/tomgolebiewski/helm-charts/releases/download/emhass-0.1.1/emhass-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-03-07T16:49:22.040114372Z"
     description: A Helm chart for Kubernetes
     digest: 45e579b910bf9e70dee3db37fd3ad84291bfd358f208ffcc1f7896a16deba64e
@@ -36,4 +49,4 @@ entries:
     urls:
     - https://github.com/tomgolebiewski/helm-charts/releases/download/myapp-0.1.0/myapp-0.1.0.tgz
     version: 0.1.0
-generated: "2024-03-07T16:49:22.040124221Z"
+generated: "2024-03-10T12:05:26.924860432Z"
