@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: golebtom/emhass
-  pullPolicy: Always
+  pullPolicy: IfNotPresent 
   # Overrides the image tag whose default is the chart appVersion.
   tag: "0.8.2"
 
@@ -195,7 +195,7 @@ defaultConfiguration:
 
 # auth:
 #   enabled: true
-#   existingSecret: "emhass-secrets"
+#   existingSecret: "emhass"
 #   fileName: ""
 #   fileContents: ""
 
