@@ -47,6 +47,46 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: emhass-config-volume
+              mountPath: /app/config_emhass.yaml
+              subPath: config_emhass.yaml
+              readOnly: true
+            - name: emhass-secrets
+              mountPath: /app/secrets_emhass.yaml
+              subPath: secrets_emhass.yaml
+              readOnly: true
+            - name: emhass-volume
+              mountPath: /app/data
+            {{- if .Values.persistence.additionalMounts }}
+              {{- .Values.persistence.additionalMounts | toYaml | nindent 12 }}
+            {{- end }}
+
+      volumes:
+        - name: emhass-config-volume
+          configMap:
+            name: {{ include "emhass.fullname" . }}
+            items:
+              - key: config_emhass.yaml
+                path: config_emhass.yaml
+        - name: emhass-secrets
+          secret:
+            secretName: {{ include "emhass.fullname" . }}
+            items:
+              - key: secrets_emhass.yaml
+                path: secrets_emhass.yaml
+        - name: emhass-volume
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "emhass.fullname" .) }}
+          {{- else }}
+          emptyDir: { }
+          {{- end }}
+          {{- if .Values.persistence.additionalVolumes }}
+            {{- .Values.persistence.additionalVolumes | toYaml | nindent 8}}
+          {{- end }}
+
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -59,3 +99,21 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
+---
+{{- if .Values.defaultConfiguration.create }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "emhass.fullname" . }}
+  labels:
+    {{- include "emhass.labels" . | nindent 4 }}
+data:
+  config_emhass.yaml: |+
+{{- if .Values.defaultConfiguration.append }}
+  {{- $.Files.Get "conf/config_emhass.yaml"  | nindent 4 -}}
+{{- end }}
+{{- if index (.Values.defaultConfiguration) "config_emhass.yaml" }}
+  {{- index (.Values.defaultConfiguration) "config_emhass.yaml" | nindent 4 -}}
+{{- end }}
+{{- end }}
