@@ -78,11 +78,11 @@ defaultConfiguration:
 
     optim_conf:
       # consider a battery storage 
-      set_use_battery: True
+      set_use_battery: False
       # days
       delta_forecast: 1
       # numbers of loads
-      num_def_loads: 1
+      num_def_loads: 2
       # loads power in watts
       P_deferrable_nom:
       - 3000.0
@@ -187,11 +187,11 @@ defaultConfiguration:
       # If your system has a battery (set_use_battery=True), the total capacity of the battery stack in Wh
       Enom: 5000
       # If your system has a battery (set_use_battery=True), the minimun allowable battery state of charge
-      SOCmin: 0.2
+      SOCmin: 0.3
       # If your system has a battery (set_use_battery=True), the maximum allowable battery state of charge
       SOCmax: 0.9
       # If your system has a battery (set_use_battery=True), the desired battery state of charge at the end of each optimization cycle
-      SOCtarget: 0.5
+      SOCtarget: 0.6
 
 # auth:
 #   enabled: true
