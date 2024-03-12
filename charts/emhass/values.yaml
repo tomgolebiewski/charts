@@ -78,7 +78,7 @@ defaultConfiguration:
 
     optim_conf:
       # consider a battery storage 
-      set_use_battery: False
+      set_use_battery: True
       # days
       delta_forecast: 1
       # numbers of loads
@@ -125,7 +125,7 @@ defaultConfiguration:
       # options are 'constant' for constant fixed value or 'csv' to load custom price forecast from a CSV file
       prod_price_forecast_method: 'constant'
       # power production selling price in PLN/kWh (only needed if prod_price_forecast_method='constant')
-      prod_sell_price: 0.44
+      prod_sell_price: 0.33
       # consider that all PV power is injected to the grid (self-consumption with total sell)
       set_total_pv_sell: False
       # set the name of the linear programming solver that will be used
