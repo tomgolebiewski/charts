@@ -5,10 +5,11 @@
 replicaCount: 1
 
 image:
-  repository: golebtom/emhass
-  pullPolicy: IfNotPresent 
+#  repository: golebtom/emhass
+  repository: davidusb/emhass-docker-standalone
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.8.2"
+  tag: "0.8.3"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -21,7 +22,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "emhass"
+  name: ""
 
 podAnnotations: {}
 
@@ -133,7 +134,7 @@ defaultConfiguration:
       # set the path to the LP solver
       lp_solver_path: 'empty'
       # avoid battery charging from the grid
-      set_nocharge_from_grid: True
+      set_nocharge_from_grid: False
       # avoid battery discharging to the grid
       set_nodischarge_to_grid: True
       # add a constraint to limit the dynamic of the battery power in power per time unit
@@ -188,14 +189,14 @@ defaultConfiguration:
       Enom: 5000
       # If your system has a battery (set_use_battery=True), the minimun allowable battery state of charge
       SOCmin: 0.3
-      # If your system has a battery (set_use_battery=True), the maximum allowable battery state of charge
+      # If your system has a battery (set_use_battery=True), the minimun allowable battery state of charge
       SOCmax: 0.9
       # If your system has a battery (set_use_battery=True), the desired battery state of charge at the end of each optimization cycle
       SOCtarget: 0.6
 
-# auth:
+auth:
+  existingSecret: ""
 #   enabled: true
-#   existingSecret: "emhass"
 #   fileName: ""
 #   fileContents: ""
 
@@ -217,10 +218,12 @@ ingress:
 
 
 persistence:
-  storageClass: ""
-  existingClaim: ""
-  enabled: false
+  enabled: true
+#  storageClass: ""
+#  existingClaim: ""
+#  annotations: {}
   accessMode: ReadWriteOnce
+  accessModes: []
   size: 5Gi
   # if you need any additional volumes, you can define them here
   additionalVolumes: []

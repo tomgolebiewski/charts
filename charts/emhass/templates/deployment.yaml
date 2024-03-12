@@ -71,7 +71,7 @@ spec:
                 path: config_emhass.yaml
         - name: emhass-secrets
           secret:
-            secretName: {{ include "emhass.fullname" . }}
+            secretName: {{ .Values.auth.existingSecret | default (include "emhass.fullname" .) }}
             items:
               - key: secrets_emhass.yaml
                 path: secrets_emhass.yaml
@@ -80,7 +80,7 @@ spec:
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim | default (include "emhass.fullname" .) }}
           {{- else }}
-          emptyDir: { }
+          emptyDir: {}
           {{- end }}
           {{- if .Values.persistence.additionalVolumes }}
             {{- .Values.persistence.additionalVolumes | toYaml | nindent 8}}
