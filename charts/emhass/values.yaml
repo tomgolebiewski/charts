@@ -218,7 +218,7 @@ ingress:
 
 
 persistence:
-  enabled: true
+  enabled: false
 #  storageClass: ""
 #  existingClaim: ""
 #  annotations: {}
