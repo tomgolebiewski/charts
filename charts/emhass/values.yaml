@@ -5,11 +5,10 @@
 replicaCount: 1
 
 image:
-#  repository: golebtom/emhass
   repository: davidusb/emhass-docker-standalone
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.8.3"
+  tag: "0.8.4"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -22,7 +21,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: ""
+  name: "emhass"
 
 podAnnotations: {}
 
@@ -41,181 +40,102 @@ service:
   type: ClusterIP
   port: 5000
 
-
-defaultConfiguration:
-  # If set to true, creates ConfigMaps/VolumeMounts. If set to false, no configuration will be created.
-  # All below fields will be ignored if create is set to false.
-  create: true
-  # If set to true,
-  #      (1) loads the built-in default configuration
-  #      (2) appends the below emhass-conf and logging configuration overrides
-  # If set to false, loads just the overrides as in (2).
-  # This option has not effect, if create is equal to false.
-  append: true
+customConfiguration:
+  # If set to true create custom configuration from values.yaml file
+  # If set to false use default configuration from helm chart repository ~/configs/config_emhass.yaml
+  # default value: false
+  create: false
   config_emhass.yaml: |+
-    # EMHASS Config
+    # EMHASS Config Overrides
     retrieve_hass_conf:
-      # The time step to resample retrieved data from hass in minutes
       freq: 30
-      # We will retrieve data from now and up to days_to_retrieve days
       days_to_retrieve: 3
-      # Photovoltaic produced power sensor in Watts
       var_PV: 'sensor.power_photovoltaics'
-      # Household power consumption sensor in Watts (deferrable loads should be substracted)
       var_load: 'sensor.power_load_no_var_loads'
-      # Set to True if the retrived load variable is negative by convention
       load_negative: False
-      # A special treatment for a minimum value saturation to zero. Values below zero are replaced by nans
       set_zero_min: True
-      # A list of retrived variables that we would want to replace nans with zeros
       var_replace_zero:
       - 'sensor.power_photovoltaics'
-      # A list of retrived variables that we would want to interpolate nan values using linear interpolation
       var_interp:
       - 'sensor.power_photovoltaics'
       - 'sensor.power_load_no_var_loads'
-      # Set the method for timestamp rounding, options are: first, last and nearest
       method_ts_round: 'nearest'
-
     optim_conf:
-      # consider a battery storage 
       set_use_battery: False
-      # days
       delta_forecast: 1
-      # numbers of loads
       num_def_loads: 2
-      # loads power in watts
       P_deferrable_nom:
       - 3000.0
       - 750.0
-      # hours
       def_total_hours:
       - 6
       - 6
-      # start timesteps
       def_start_timestep:
       - 0
       - 0
-      # end timesteps
       def_end_timestep:
       - 0
       - 0
-      # treat this variable as semi continuous
       treat_def_as_semi_cont:
       - True
       - True
-      # set as a constant fixed value variable with just one startup for each 24h
       set_def_constant:
       - False
       - False
-      # options are 'scrapper', 'csv', 'list', 'solcast' and 'solar.forecast'
       weather_forecast_method: 'scrapper'
-      # options are 'csv' to load a custom load forecast from a CSV file or 'naive' for a persistance model
       load_forecast_method: 'naive'
-      # options are 'hp_hc_periods' for peak and non-peak hours contracts and 'csv' to load custom cost from CS
       load_cost_forecast_method: 'hp_hc_periods'
-      # list of different tariff periods (only needed if load_cost_forecast_method='hp_hc_periods')
       list_hp_periods:
       - period_hp_1:
         - start: '00:00'
         - end: '23:59'
-      # peak hours load cost in PLN/kWh (only needed if load_cost_forecast_method='hp_hc_periods')
       load_cost_hp: 0.85
-      # non-peak hours load cost in PLN/kWh (only needed if load_cost_forecast_method='hp_hc_periods')
       load_cost_hc: 0.85
-      # options are 'constant' for constant fixed value or 'csv' to load custom price forecast from a CSV file
       prod_price_forecast_method: 'constant'
-      # power production selling price in PLN/kWh (only needed if prod_price_forecast_method='constant')
       prod_sell_price: 0.33
-      # consider that all PV power is injected to the grid (self-consumption with total sell)
       set_total_pv_sell: False
-      # set the name of the linear programming solver that will be used
       lp_solver: 'default'
-      # set the path to the LP solver
       lp_solver_path: 'empty'
-      # avoid battery charging from the grid
       set_nocharge_from_grid: False
-      # avoid battery discharging to the grid
       set_nodischarge_to_grid: True
-      # add a constraint to limit the dynamic of the battery power in power per time unit
       set_battery_dynamic: False
-      # maximum dynamic positive power variation in percentage of battery maximum power
       battery_dynamic_max: 0.9
-      # minimum dynamic negative power variation in percentage of battery maximum power
       battery_dynamic_min: -0.9
-      # weight applied in cost function to battery usage for discharge
       weight_battery_discharge: 0.0
-      # weight applied in cost function to battery usage for charge
       weight_battery_charge: 0.0
-
     plant_conf:
-      # The maximum power that can be supplied by the utility grid in Watts
       P_grid_max: 9000
-      # The maximum power that can be supplied to the utility grid in Watts
-      # P_to_grid_max: 9000
-      # The PV module model
       module_model:
       - 'JA_Solar_JAM72S01_340_PR'
       - 'JA_Solar_JAM72S01_340_PR'
-      # The PV inverter model
       inverter_model:
       - 'Fronius_International_GmbH__Fronius_Symo_10_0_3_480__480V_'
       - 'Fronius_International_GmbH__Fronius_Symo_10_0_3_480__480V_'
-      # The tilt angle of your solar panels
       surface_tilt:
       - 45
       - 45
-      # The azimuth angle of your PV installation
       surface_azimuth:
       - 90
       - 270
-      # The number of modules per string
       modules_per_string:
       - 15
       - 14
-      # The number of used strings per inverter
       strings_per_inverter:
       - 1
       - 1
-      # If your system has a battery (set_use_battery=True), the maximum discharge power in Watts
       Pd_max: 1000
-      # If your system has a battery (set_use_battery=True), the maximum charge power in Watts
       Pc_max: 1000
-      # If your system has a battery (set_use_battery=True), the discharge efficiency
       eta_disch: 0.95
-      # If your system has a battery (set_use_battery=True), the charge efficiency
       eta_ch: 0.95
-      # If your system has a battery (set_use_battery=True), the total capacity of the battery stack in Wh
       Enom: 5000
-      # If your system has a battery (set_use_battery=True), the minimun allowable battery state of charge
       SOCmin: 0.3
-      # If your system has a battery (set_use_battery=True), the minimun allowable battery state of charge
       SOCmax: 0.9
-      # If your system has a battery (set_use_battery=True), the desired battery state of charge at the end of each optimization cycle
       SOCtarget: 0.6
 
-auth:
-  existingSecret: ""
-#   enabled: true
-#   fileName: ""
-#   fileContents: ""
-
-ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: emhass.mydomain.com
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: emhass-tls
-  #    hosts:
-  #      - emhass.mydomain.com
-
+## @param existingSecret Existing secret to use as secrets_emhass.yaml.
+## Must contain the key "secrets_emhass.yaml"
+##
+existingSecrets: ""
 
 persistence:
   enabled: false
@@ -229,6 +149,22 @@ persistence:
   additionalVolumes: []
   # if you need any additional volume mounts, you can define them here
   additionalMounts: []
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

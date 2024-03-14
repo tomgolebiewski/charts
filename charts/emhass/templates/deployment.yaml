@@ -71,7 +71,7 @@ spec:
                 path: config_emhass.yaml
         - name: emhass-secrets
           secret:
-            secretName: {{ .Values.auth.existingSecret | default (include "emhass.fullname" .) }}
+            secretName: {{ .Values.existingSecrets | default (include "emhass.fullname" .) }}
             items:
               - key: secrets_emhass.yaml
                 path: secrets_emhass.yaml
@@ -86,7 +86,6 @@ spec:
             {{- .Values.persistence.additionalVolumes | toYaml | nindent 8}}
           {{- end }}
 
-
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -99,21 +98,3 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-
----
-{{- if .Values.defaultConfiguration.create }}
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "emhass.fullname" . }}
-  labels:
-    {{- include "emhass.labels" . | nindent 4 }}
-data:
-  config_emhass.yaml: |+
-{{- if .Values.defaultConfiguration.append }}
-  {{- $.Files.Get "conf/config_emhass.yaml"  | nindent 4 -}}
-{{- end }}
-{{- if index (.Values.defaultConfiguration) "config_emhass.yaml" }}
-  {{- index (.Values.defaultConfiguration) "config_emhass.yaml" | nindent 4 -}}
-{{- end }}
-{{- end }}
