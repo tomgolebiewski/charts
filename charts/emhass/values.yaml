@@ -47,90 +47,10 @@ customConfiguration:
   create: false
   config_emhass.yaml: |+
     # EMHASS Config Overrides
-    retrieve_hass_conf:
-      freq: 30
-      days_to_retrieve: 3
-      var_PV: 'sensor.power_photovoltaics'
-      var_load: 'sensor.power_load_no_var_loads'
-      load_negative: False
-      set_zero_min: True
-      var_replace_zero:
-      - 'sensor.power_photovoltaics'
-      var_interp:
-      - 'sensor.power_photovoltaics'
-      - 'sensor.power_load_no_var_loads'
-      method_ts_round: 'nearest'
-    optim_conf:
-      set_use_battery: False
-      delta_forecast: 1
-      num_def_loads: 2
-      P_deferrable_nom:
-      - 3000.0
-      - 750.0
-      def_total_hours:
-      - 6
-      - 6
-      def_start_timestep:
-      - 0
-      - 0
-      def_end_timestep:
-      - 0
-      - 0
-      treat_def_as_semi_cont:
-      - True
-      - True
-      set_def_constant:
-      - False
-      - False
-      weather_forecast_method: 'scrapper'
-      load_forecast_method: 'naive'
-      load_cost_forecast_method: 'hp_hc_periods'
-      list_hp_periods:
-      - period_hp_1:
-        - start: '00:00'
-        - end: '23:59'
-      load_cost_hp: 0.85
-      load_cost_hc: 0.85
-      prod_price_forecast_method: 'constant'
-      prod_sell_price: 0.33
-      set_total_pv_sell: False
-      lp_solver: 'default'
-      lp_solver_path: 'empty'
-      set_nocharge_from_grid: False
-      set_nodischarge_to_grid: True
-      set_battery_dynamic: False
-      battery_dynamic_max: 0.9
-      battery_dynamic_min: -0.9
-      weight_battery_discharge: 0.0
-      weight_battery_charge: 0.0
-    plant_conf:
-      P_grid_max: 9000
-      module_model:
-      - 'JA_Solar_JAM72S01_340_PR'
-      - 'JA_Solar_JAM72S01_340_PR'
-      inverter_model:
-      - 'Fronius_International_GmbH__Fronius_Symo_10_0_3_480__480V_'
-      - 'Fronius_International_GmbH__Fronius_Symo_10_0_3_480__480V_'
-      surface_tilt:
-      - 45
-      - 45
-      surface_azimuth:
-      - 90
-      - 270
-      modules_per_string:
-      - 15
-      - 14
-      strings_per_inverter:
-      - 1
-      - 1
-      Pd_max: 1000
-      Pc_max: 1000
-      eta_disch: 0.95
-      eta_ch: 0.95
-      Enom: 5000
-      SOCmin: 0.3
-      SOCmax: 0.9
-      SOCtarget: 0.6
+    # retrieve_hass_conf:
+    #   freq: 30
+    #   days_to_retrieve: 3
+    #   ... 
 
 ## @param existingSecret Existing secret to use as secrets_emhass.yaml.
 ## Must contain the key "secrets_emhass.yaml"
