@@ -52,9 +52,9 @@ customConfiguration:
     #   days_to_retrieve: 3
     #   ... 
 
-## @param existingSecret Existing secret to use as secrets_emhass.yaml.
-## Must contain the key "secrets_emhass.yaml"
-##
+# @param existingSecret Existing secret to use as secrets_emhass.yaml
+# Must contain the key "secrets_emhass.yaml"
+# If empty use default secrets from helm chart repository ~/secrets/secrets_emhass.yaml
 existingSecrets: ""
 
 persistence:
