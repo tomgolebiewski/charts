@@ -1,18 +1,13 @@
+{{- if .Values.customConfiguration.create }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "emhass.fullname" . }}
 data:
-{{- if not .Values.customConfiguration.create }}
-{{- range $path, $_ := (.Files.Glob "configs/*") }}
-  {{ trimPrefix "configs/" $path }}: |
-    {{- tpl ($.Files.Get $path) $ | nindent 4 }}
-{{- end }}
-{{- end }}
-
-{{- if .Values.customConfiguration.create }}
   config_emhass.yaml: |+
 {{- if index (.Values.customConfiguration) "config_emhass.yaml" }}
   {{- index (.Values.customConfiguration) "config_emhass.yaml" | nindent 4 -}}
 {{- end }}
 {{- end }}
+
+

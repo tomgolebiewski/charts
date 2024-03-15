@@ -42,7 +42,7 @@ service:
 
 customConfiguration:
   # If set to true create custom configuration from values.yaml file
-  # If set to false use default configuration from helm chart repository ~/configs/config_emhass.yaml
+  # If set to false uses default configuration from docker image ~/app/config_emhass.yaml
   # default value: false
   create: false
   config_emhass.yaml: |+
@@ -54,8 +54,21 @@ customConfiguration:
 
 # @param existingSecret Existing secret to use as secrets_emhass.yaml
 # Must contain the key "secrets_emhass.yaml"
-# If empty use default secrets from helm chart repository ~/secrets/secrets_emhass.yaml
+# If empty uses secrets section
 existingSecrets: ""
+
+secrets: 
+  secrets_emhass.yaml: |+
+    # EMHASS default secrets
+    hass_url: https://myhass.duckdns.org/
+    long_lived_token: thatverylongtokenhere
+    time_zone: Europe/Paris
+    lat: 45.83
+    lon: 6.86
+    alt: 4807.8
+    solcast_api_key: yoursecretsolcastapikey
+    solcast_rooftop_id: yourrooftopid
+    solar_forecast_kwp: 5
 
 persistence:
   enabled: false
