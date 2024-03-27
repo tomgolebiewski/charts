@@ -54,7 +54,7 @@ customConfiguration:
 
 # @param existingSecret Existing secret to use as secrets_emhass.yaml
 # Must contain the key "secrets_emhass.yaml"
-# If empty uses secrets section
+# If empty create secrets from values.yaml
 existingSecrets: ""
 
 secrets: 
