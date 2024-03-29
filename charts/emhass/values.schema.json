@@ -1,0 +1,623 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "replicaCount",
+        "image",
+        "imagePullSecrets",
+        "nameOverride",
+        "fullnameOverride",
+        "serviceAccount",
+        "podAnnotations",
+        "podSecurityContext",
+        "securityContext",
+        "service",
+        "customConfiguration",
+        "existingSecrets",
+        "secrets",
+        "persistence",
+        "ingress",
+        "resources",
+        "autoscaling",
+        "nodeSelector",
+        "tolerations",
+        "affinity"
+    ],
+    "properties": {
+        "replicaCount": {
+            "type": "integer",
+            "default": 0,
+            "title": "The replicaCount Schema",
+            "examples": [
+                1
+            ]
+        },
+        "image": {
+            "type": "object",
+            "default": {},
+            "title": "The image Schema",
+            "required": [
+                "repository",
+                "pullPolicy",
+                "tag"
+            ],
+            "properties": {
+                "repository": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The repository Schema",
+                    "examples": [
+                        "davidusb/emhass-docker-standalone"
+                    ]
+                },
+                "pullPolicy": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The pullPolicy Schema",
+                    "examples": [
+                        "IfNotPresent"
+                    ]
+                },
+                "tag": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The tag Schema",
+                    "examples": [
+                        "0.8.4"
+                    ]
+                }
+            },
+            "examples": [{
+                "repository": "davidusb/emhass-docker-standalone",
+                "pullPolicy": "IfNotPresent",
+                "tag": "0.8.4"
+            }]
+        },
+        "imagePullSecrets": {
+            "type": "array",
+            "default": [],
+            "title": "The imagePullSecrets Schema",
+            "items": {},
+            "examples": [
+                []
+            ]
+        },
+        "nameOverride": {
+            "type": "string",
+            "default": "",
+            "title": "The nameOverride Schema",
+            "examples": [
+                ""
+            ]
+        },
+        "fullnameOverride": {
+            "type": "string",
+            "default": "",
+            "title": "The fullnameOverride Schema",
+            "examples": [
+                ""
+            ]
+        },
+        "serviceAccount": {
+            "type": "object",
+            "default": {},
+            "title": "The serviceAccount Schema",
+            "required": [
+                "create",
+                "annotations",
+                "name"
+            ],
+            "properties": {
+                "create": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The create Schema",
+                    "examples": [
+                        true
+                    ]
+                },
+                "annotations": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The annotations Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "name": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The name Schema",
+                    "examples": [
+                        "emhass"
+                    ]
+                }
+            },
+            "examples": [{
+                "create": true,
+                "annotations": {},
+                "name": "emhass"
+            }]
+        },
+        "podAnnotations": {
+            "type": "object",
+            "default": {},
+            "title": "The podAnnotations Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "podSecurityContext": {
+            "type": "object",
+            "default": {},
+            "title": "The podSecurityContext Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "securityContext": {
+            "type": "object",
+            "default": {},
+            "title": "The securityContext Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "service": {
+            "type": "object",
+            "default": {},
+            "title": "The service Schema",
+            "required": [
+                "type",
+                "port"
+            ],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The type Schema",
+                    "examples": [
+                        "ClusterIP"
+                    ]
+                },
+                "port": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The port Schema",
+                    "examples": [
+                        5000
+                    ]
+                }
+            },
+            "examples": [{
+                "type": "ClusterIP",
+                "port": 5000
+            }]
+        },
+        "customConfiguration": {
+            "type": "object",
+            "default": {},
+            "title": "The customConfiguration Schema",
+            "required": [
+                "create",
+                "config_emhass.yaml"
+            ],
+            "properties": {
+                "create": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The create Schema",
+                    "examples": [
+                        false
+                    ]
+                },
+                "config_emhass.yaml": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The config_emhass.yaml Schema",
+                    "examples": [
+                        "# EMHASS Config Overrides\n# retrieve_hass_conf:\n#   freq: 30\n#   days_to_retrieve: 3\n#   ... \n\n"
+                    ]
+                }
+            },
+            "examples": [{
+                "create": false,
+                "config_emhass.yaml": "# EMHASS Config Overrides\n# retrieve_hass_conf:\n#   freq: 30\n#   days_to_retrieve: 3\n#   ... \n\n"
+            }]
+        },
+        "existingSecrets": {
+            "type": "string",
+            "default": "",
+            "title": "The existingSecrets Schema",
+            "examples": [
+                ""
+            ]
+        },
+        "secrets": {
+            "type": "object",
+            "default": {},
+            "title": "The secrets Schema",
+            "required": [
+                "secrets_emhass.yaml"
+            ],
+            "properties": {
+                "secrets_emhass.yaml": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The secrets_emhass.yaml Schema",
+                    "examples": [
+                        "# EMHASS default secrets\nhass_url: https://myhass.duckdns.org/\nlong_lived_token: thatverylongtokenhere\ntime_zone: Europe/Paris\nlat: 45.83\nlon: 6.86\nalt: 4807.8\nsolcast_api_key: yoursecretsolcastapikey\nsolcast_rooftop_id: yourrooftopid\nsolar_forecast_kwp: 5\n\n"
+                    ]
+                }
+            },
+            "examples": [{
+                "secrets_emhass.yaml": "# EMHASS default secrets\nhass_url: https://myhass.duckdns.org/\nlong_lived_token: thatverylongtokenhere\ntime_zone: Europe/Paris\nlat: 45.83\nlon: 6.86\nalt: 4807.8\nsolcast_api_key: yoursecretsolcastapikey\nsolcast_rooftop_id: yourrooftopid\nsolar_forecast_kwp: 5\n\n"
+            }]
+        },
+        "persistence": {
+            "type": "object",
+            "default": {},
+            "title": "The persistence Schema",
+            "required": [
+                "enabled",
+                "accessMode",
+                "accessModes",
+                "size",
+                "additionalVolumes",
+                "additionalMounts"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enabled Schema",
+                    "examples": [
+                        false
+                    ]
+                },
+                "accessMode": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The accessMode Schema",
+                    "examples": [
+                        "ReadWriteOnce"
+                    ]
+                },
+                "accessModes": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The accessModes Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "size": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The size Schema",
+                    "examples": [
+                        "5Gi"
+                    ]
+                },
+                "additionalVolumes": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The additionalVolumes Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "additionalMounts": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The additionalMounts Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                }
+            },
+            "examples": [{
+                "enabled": false,
+                "accessMode": "ReadWriteOnce",
+                "accessModes": [],
+                "size": "5Gi",
+                "additionalVolumes": [],
+                "additionalMounts": []
+            }]
+        },
+        "ingress": {
+            "type": "object",
+            "default": {},
+            "title": "The ingress Schema",
+            "required": [
+                "enabled",
+                "className",
+                "annotations",
+                "hosts",
+                "tls"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enabled Schema",
+                    "examples": [
+                        false
+                    ]
+                },
+                "className": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The className Schema",
+                    "examples": [
+                        ""
+                    ]
+                },
+                "annotations": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The annotations Schema",
+                    "required": [],
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "hosts": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The hosts Schema",
+                    "items": {
+                        "type": "object",
+                        "default": {},
+                        "title": "A Schema",
+                        "required": [
+                            "host",
+                            "paths"
+                        ],
+                        "properties": {
+                            "host": {
+                                "type": "string",
+                                "default": "",
+                                "title": "The host Schema",
+                                "examples": [
+                                    "chart-example.local"
+                                ]
+                            },
+                            "paths": {
+                                "type": "array",
+                                "default": [],
+                                "title": "The paths Schema",
+                                "items": {
+                                    "type": "object",
+                                    "default": {},
+                                    "title": "A Schema",
+                                    "required": [
+                                        "path",
+                                        "pathType"
+                                    ],
+                                    "properties": {
+                                        "path": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The path Schema",
+                                            "examples": [
+                                                "/"
+                                            ]
+                                        },
+                                        "pathType": {
+                                            "type": "string",
+                                            "default": "",
+                                            "title": "The pathType Schema",
+                                            "examples": [
+                                                "ImplementationSpecific"
+                                            ]
+                                        }
+                                    },
+                                    "examples": [{
+                                        "path": "/",
+                                        "pathType": "ImplementationSpecific"
+                                    }]
+                                },
+                                "examples": [
+                                    [{
+                                        "path": "/",
+                                        "pathType": "ImplementationSpecific"
+                                    }]
+                                ]
+                            }
+                        },
+                        "examples": [{
+                            "host": "chart-example.local",
+                            "paths": [{
+                                "path": "/",
+                                "pathType": "ImplementationSpecific"
+                            }]
+                        }]
+                    },
+                    "examples": [
+                        [{
+                            "host": "chart-example.local",
+                            "paths": [{
+                                "path": "/",
+                                "pathType": "ImplementationSpecific"
+                            }]
+                        }]
+                    ]
+                },
+                "tls": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The tls Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                }
+            },
+            "examples": [{
+                "enabled": false,
+                "className": "",
+                "annotations": {},
+                "hosts": [{
+                    "host": "chart-example.local",
+                    "paths": [{
+                        "path": "/",
+                        "pathType": "ImplementationSpecific"
+                    }]
+                }],
+                "tls": []
+            }]
+        },
+        "resources": {
+            "type": "object",
+            "default": {},
+            "title": "The resources Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "autoscaling": {
+            "type": "object",
+            "default": {},
+            "title": "The autoscaling Schema",
+            "required": [
+                "enabled",
+                "minReplicas",
+                "maxReplicas",
+                "targetCPUUtilizationPercentage"
+            ],
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The enabled Schema",
+                    "examples": [
+                        false
+                    ]
+                },
+                "minReplicas": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The minReplicas Schema",
+                    "examples": [
+                        1
+                    ]
+                },
+                "maxReplicas": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The maxReplicas Schema",
+                    "examples": [
+                        5
+                    ]
+                },
+                "targetCPUUtilizationPercentage": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "The targetCPUUtilizationPercentage Schema",
+                    "examples": [
+                        80
+                    ]
+                }
+            },
+            "examples": [{
+                "enabled": false,
+                "minReplicas": 1,
+                "maxReplicas": 5,
+                "targetCPUUtilizationPercentage": 80
+            }]
+        },
+        "nodeSelector": {
+            "type": "object",
+            "default": {},
+            "title": "The nodeSelector Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        },
+        "tolerations": {
+            "type": "array",
+            "default": [],
+            "title": "The tolerations Schema",
+            "items": {},
+            "examples": [
+                []
+            ]
+        },
+        "affinity": {
+            "type": "object",
+            "default": {},
+            "title": "The affinity Schema",
+            "required": [],
+            "properties": {},
+            "examples": [{}]
+        }
+    },
+    "examples": [{
+        "replicaCount": 1,
+        "image": {
+            "repository": "davidusb/emhass-docker-standalone",
+            "pullPolicy": "IfNotPresent",
+            "tag": "0.8.4"
+        },
+        "imagePullSecrets": [],
+        "nameOverride": "",
+        "fullnameOverride": "",
+        "serviceAccount": {
+            "create": true,
+            "annotations": {},
+            "name": "emhass"
+        },
+        "podAnnotations": {},
+        "podSecurityContext": {},
+        "securityContext": {},
+        "service": {
+            "type": "ClusterIP",
+            "port": 5000
+        },
+        "customConfiguration": {
+            "create": false,
+            "config_emhass.yaml": "# EMHASS Config Overrides\n# retrieve_hass_conf:\n#   freq: 30\n#   days_to_retrieve: 3\n#   ... \n\n"
+        },
+        "existingSecrets": "",
+        "secrets": {
+            "secrets_emhass.yaml": "# EMHASS default secrets\nhass_url: https://myhass.duckdns.org/\nlong_lived_token: thatverylongtokenhere\ntime_zone: Europe/Paris\nlat: 45.83\nlon: 6.86\nalt: 4807.8\nsolcast_api_key: yoursecretsolcastapikey\nsolcast_rooftop_id: yourrooftopid\nsolar_forecast_kwp: 5\n\n"
+        },
+        "persistence": {
+            "enabled": false,
+            "accessMode": "ReadWriteOnce",
+            "accessModes": [],
+            "size": "5Gi",
+            "additionalVolumes": [],
+            "additionalMounts": []
+        },
+        "ingress": {
+            "enabled": false,
+            "className": "",
+            "annotations": {},
+            "hosts": [{
+                "host": "chart-example.local",
+                "paths": [{
+                    "path": "/",
+                    "pathType": "ImplementationSpecific"
+                }]
+            }],
+            "tls": []
+        },
+        "resources": {},
+        "autoscaling": {
+            "enabled": false,
+            "minReplicas": 1,
+            "maxReplicas": 5,
+            "targetCPUUtilizationPercentage": 80
+        },
+        "nodeSelector": {},
+        "tolerations": [],
+        "affinity": {}
+    }]
+}
