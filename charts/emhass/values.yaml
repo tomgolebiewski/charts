@@ -8,7 +8,7 @@ image:
   repository: davidusb/emhass-docker-standalone
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.8.5"
+  tag: "0.8.4"
 
 imagePullSecrets: []
 nameOverride: ""
