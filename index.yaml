@@ -106,6 +106,16 @@ entries:
   myapp:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-04-03T10:30:41.979471686Z"
+    description: A Helm chart for Kubernetes
+    digest: aaae8e72ac5203bca7c356b2fbc8b2fc652f9a5d4bdf5cffe925fe4940cadb8f
+    name: myapp
+    type: application
+    urls:
+    - https://github.com/tomgolebiewski/helm-charts/releases/download/myapp-0.1.1/myapp-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-03-07T15:57:47.215572119Z"
     description: A Helm chart for Kubernetes
     digest: d892b625eebfebb6e57f99023264073d557b8ace95db2993b80410b8cdd2aaad
@@ -114,4 +124,4 @@ entries:
     urls:
     - https://github.com/tomgolebiewski/helm-charts/releases/download/myapp-0.1.0/myapp-0.1.0.tgz
     version: 0.1.0
-generated: "2024-04-02T18:23:35.319878038Z"
+generated: "2024-04-03T10:30:41.97949532Z"
