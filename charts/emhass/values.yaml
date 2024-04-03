@@ -40,7 +40,7 @@ service:
   type: ClusterIP
   port: 5000
 
-timezone: Europe/Warsaw
+timezone: Europe/Paris
 
 customConfiguration:
   # If set to true create custom configuration from values.yaml file
