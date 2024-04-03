@@ -36,6 +36,8 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+timezone: Europe/Warsaw
+
 service:
   type: ClusterIP
   port: 80
