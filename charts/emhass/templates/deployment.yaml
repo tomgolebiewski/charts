@@ -45,6 +45,9 @@ spec:
             httpGet:
               path: /
               port: http
+          env:
+            - name: TZ
+              value: {{ .Values.timezone }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
