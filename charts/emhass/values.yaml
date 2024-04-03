@@ -40,6 +40,8 @@ service:
   type: ClusterIP
   port: 5000
 
+timezone: Europe/Warsaw
+
 customConfiguration:
   # If set to true create custom configuration from values.yaml file
   # If set to false uses default configuration from docker image ~/app/config_emhass.yaml
