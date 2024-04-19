@@ -8,7 +8,7 @@ image:
   repository: davidusb/emhass-docker-standalone
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.8.5"
+  tag: "0.8.6"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -40,7 +40,11 @@ service:
   type: ClusterIP
   port: 5000
 
-timezone: Europe/Warsaw
+# Environment variables
+# @timezone
+timezone: Europe/Paris
+# @cost functions; the options are: profit, cost, self-consumption
+costfun: "profit"
 
 customConfiguration:
   # If set to true create custom configuration from values.yaml file

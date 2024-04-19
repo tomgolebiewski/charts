@@ -48,6 +48,8 @@ spec:
           env:
             - name: TZ
               value: {{ .Values.timezone }}
+            - name: LOCAL_COSTFUN
+              value: {{ .Values.costfun }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
